@@ -1,0 +1,17 @@
+
+- unit tests
+- "model"
+- flask form
+- flask result
+TemplateNotFound: favicon.ico.html ???
+
+---
+
+- travis anbindung (ci)
+- acceptance tests (coveralls)
+- pip package (pypi)
+
+---
+
+- install.sh Skript fuer Debian
+- VagrantBox (Debian Unstable)

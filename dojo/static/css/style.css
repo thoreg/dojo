@@ -1,0 +1,42 @@
+body {
+    font-family: monospace;
+}
+
+#content {
+    background-color: #eee;
+    border-style: dotted;
+    border-width: 1px;
+    margin: 3em;
+}
+
+h1 {
+    margin: 1em;
+}
+
+#navigation {
+    margin-top: 3em;
+}
+
+#navigation li {
+    display: inline;
+    margin-right: 2em;
+}
+
+#navigation li a {
+    text-decoration: none;
+}
+
+#navigation li.active {
+    font-weight: bold;
+}
+
+#solution {
+    background-color: #ccc;
+    border-style: dotted;
+    border-width: 1px;
+    margin: 3em;
+}
+
+.logo {
+    margin: 1em 1em 0 5em;
+}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<nav>
+    <ul id="navigation">
+    {% set active_page = active_page|default('index') %}
+    {% for href, id, caption in navigation_bar %}
+        <li{% if id == active_page %} class="active"{% endif %}>
+            <a href="{{ href|e }}">{{ caption|e }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+</nav>
+<div id="content">
+    {% block content %}
+    {% endblock %}
+</div>
+</body>
+</html>
