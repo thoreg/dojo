@@ -1,3 +1,10 @@
+dojo
+====
+
+coding for fun and profit ...
+
+.. image:: https://api.travis-ci.org/thoreg/dojo.png?branch=master
+  :target: https://travis-ci.org/thoreg/dojo
 
 Setup
 -----
