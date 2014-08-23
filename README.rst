@@ -3,7 +3,7 @@ dojo
 
 coding for fun and profit ...
 
-.. image:: https://api.travis-ci.org/thoreg/dojo.png?branch=master
+.. image:: https://travis-ci.org/thoreg/dojo.svg?branch=master
   :target: https://travis-ci.org/thoreg/dojo
 
 Setup
