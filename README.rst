@@ -5,9 +5,8 @@ coding for fun and profit ...
 
 .. image:: https://travis-ci.org/thoreg/dojo.svg?branch=master
   :target: https://travis-ci.org/thoreg/dojo
-.. image:: https://coveralls.io/repos/thoreg/dojo/badge.png
-  :target: https://coveralls.io/r/thoreg/dojo
-
+.. image:: https://coveralls.io/repos/thoreg/dojo/badge.png?branch=master
+  :target: https://coveralls.io/r/thoreg/dojo?branch=master
 
 
 Setup
