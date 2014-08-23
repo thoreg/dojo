@@ -3,7 +3,9 @@
 - "model"
 - flask form
 - flask result
+- Ignore case
 TemplateNotFound: favicon.ico.html ???
+- bootstrap einbinden -> messages
 
 ---
 
@@ -15,3 +17,4 @@ TemplateNotFound: favicon.ico.html ???
 
 - install.sh Skript fuer Debian
 - VagrantBox (Debian Unstable)
+- isort
