@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
-import logging
-from logging.handlers import RotatingFileHandler
 
 from dojo.forms import SimpleForm
-from dojo.parser import Parser
+from dojo.task1 import Parser
 from flask import flash, Flask, render_template, request
 
 app = Flask(__name__)

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from dojo.parser import Parser
+from dojo.task1 import Parser
 
 INPUT = u"""
 Ein toller Beispieltext ist Blindtext. Er hat ein paar Wörter. Dies ist ein
