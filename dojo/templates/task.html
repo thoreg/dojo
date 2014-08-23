@@ -1,13 +1,38 @@
 {% extends "base.html" %}
-{% block content %}
-
-{% block form %}
+{% block title %}
+    {{app_name}}
 {% endblock %}
 
-<div id="solution">
-    <pre>
-        {% block solution %}
-        {% endblock %}
-    </pre>
-</div>
+{% macro render_field(field) %}
+    <dt>{{ field.label }}
+    <dd>{{ field(**kwargs)|safe }}
+    {% if field.errors %}
+        <ul class=errors>
+        {% for error in field.errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    </dd>
+{% endmacro %}
+
+{% block content %}
+    {% block description_and_form %}
+        <p class="description">
+            {{ description }}
+        </p>
+        <form action="" method=post>
+            <dl>
+                {{ render_field(form.text) }}
+            </dl>
+            <p>
+                <input type="submit" value="Senden" class="button" id="submit_button">
+            </p>
+        </form>
+    {% endblock %}
+    {% if solution %}
+    <div id="solution">
+        <pre>{{ solution }}</pre>
+    </div>
+    {% endif %}
 {% endblock %}
