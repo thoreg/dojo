@@ -59,7 +59,8 @@ def test_get_rarest_word():
         'ccc': [6],
         'ddd': [7],
     }
-    print parser.get_rarest_word()
+
+    assert parser.get_rarest_words() == ['ccc', 'ddd']
 
 
 # Fails with multiple rarest words ...

@@ -8,7 +8,7 @@
 """
 import re
 import logging
-from collections import defaultdict, namedtuple
+from collections import deque, defaultdict, namedtuple
 
 
 Result = namedtuple('Result', 'distance begin end')
@@ -66,8 +66,8 @@ class Parser:
         if not self.each_word_found():
             return "KEIN ABSCHNITT GEFUNDEN"
 
-        self.most_rarely_word = self.get_rarest_word()
-        log.info("Most rarely word: {}".format(self.most_rarely_word))
+        self.rarest_words = self.get_rarest_word()
+        log.info("Most rarely word: {}".format(self.rarest_words))
 
         result = self.find_nearest_positions_through_all_search_string_positions()
         log.info("\nResult: {}\n".format(result))
@@ -131,29 +131,32 @@ class Parser:
     def get_distance(self, value_a, value_b):
         return abs(int(value_a) - int(value_b))
 
-    def get_rarest_word(self):
+    def get_rarest_words(self):
         """
         l = list(words)
         l.sort(lambda x, y: cmp(len(ind[x], ind[y])))
         l[0] => rarest word
         """
-        word = ''
+        rarest_words = deque()
         occurrence = 0
-        for search_word in self.words:
+        for word in self.words:
             if occurrence == 0:
-                occurrence = len(self.word_indicies[search_word])
-                word = search_word
+                occurrence = len(self.word_indicies[word])
+                rarest_words.append((word, occurrence))
 
-            if occurrence > len(self.word_indicies[search_word]):
-                occurrence = len(self.word_indicies[search_word])
-                word = search_word
+            if occurrence > len(self.word_indicies[word]):
+                occurrence = len(self.word_indicies[word])
+                rarest_words.clear()
+                rarest_words.append((word, occurrence))
+            elif occurrence == len(self.word_indicies[word]):
+                rarest_words.append((word, occurrence))
 
             log.info("\"{}\" occures {} times in {}".format(
-                     search_word,
-                     len(self.word_indicies[search_word]),
-                     self.word_indicies[search_word]))
+                     word,
+                     len(self.word_indicies[word]),
+                     self.word_indicies[word]))
 
-        return word
+        return [word[0] for word in rarest_words]
 
     def each_word_found(self):
         """
