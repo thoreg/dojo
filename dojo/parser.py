@@ -61,40 +61,56 @@ class Parser:
         return indicies
 
     def get_solution(self):
+        """
+        Algorithm:
+        - find all indicies for all words within the text
+        - find out which words are the rarest
+        - for each of the rarest words find out the smallest sum of the distances of each nearest
+          occurence (absolute value) of each other word from the list of words to search for
+        - collect for each rarest word the sum of all distances, the begin and the and of the range
+          which contains all words
+        - return the smallest distance with the smallest value for begin
+
+        """
         self.word_indicies = self._get_positions_of_each_word_in_text(self.text)
 
         if not self.each_word_found():
             return "KEIN ABSCHNITT GEFUNDEN"
 
-        self.rarest_words = self.get_rarest_word()
-        log.info("Most rarely word: {}".format(self.rarest_words))
+        self.rarest_words = self.get_rarest_words()
+        log.info("\nThe rarest words: {}".format(self.rarest_words))
 
-        result = self.find_nearest_positions_through_all_search_string_positions()
-        log.info("\nResult: {}\n".format(result))
+        results = []
+        for word in self.rarest_words:
+            result = self.get_distance_begin_and_end(word)
+            log.info("\nResult: {}\n".format(result))
+            results.append(result)
+
+        result = sorted(results)[0]
+        log.info("Results: {}".format(sorted(results)))
 
         return " ".join(self.text.split()[result.begin:result.end])
 
-    def find_nearest_positions_through_all_search_string_positions(self):
+    def get_distance_begin_and_end(self, word):
         """
         Find the nearest 'indicies' of the other 'search_words' based on the rarest search_word.
-        Sum up the distance for each search_word over all search word indicies.
-        Do this for every index of the rarest search word and return the begin and the end of
-        the nearest indicies.
+        Sum up the distance for each search_word over all search word indicies. Do this for every
+        index of the rarest search word and return the begin and the end of the nearest indicies.
 
         """
-        list_of_search_words = self.words
-        list_of_search_words.remove(self.most_rarely_word)
+        list_of_search_words = list(self.words)
+        list_of_search_words.remove(word)
         result = {}
 
         # maximal distance is the number of all words - 1
         result_distance = len(self.word_indicies) - 1
 
-        for index in self.word_indicies[self.most_rarely_word]:
+        for index in self.word_indicies[word]:
             distance = 0
             begin = 0
             end = 0
 
-            log.info("\nDiscover '{}' at index: {}".format(self.most_rarely_word, index))
+            log.info("\nDiscover '{}' at index: {}".format(word, index))
             for search_word in list_of_search_words:
                 nearest_index = self.find_nearest_value_in_a_list(index,
                                                                   self.word_indicies[search_word])
@@ -112,7 +128,6 @@ class Parser:
 
             log.info("distance: {} begin: {} end: {}".format(distance, begin, end))
 
-            # TODO: wenn gleich lang auf begin schauen
             if distance < result_distance:
                 result = Result(distance, begin, end+1)
                 result_distance = distance
@@ -133,9 +148,8 @@ class Parser:
 
     def get_rarest_words(self):
         """
-        l = list(words)
-        l.sort(lambda x, y: cmp(len(ind[x], ind[y])))
-        l[0] => rarest word
+        Return a list of words which have the shortest list of occurrence (inicies) within the text.
+
         """
         rarest_words = deque()
         occurrence = 0

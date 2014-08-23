@@ -59,14 +59,11 @@ def test_get_rarest_word():
         'ccc': [6],
         'ddd': [7],
     }
-
     assert parser.get_rarest_words() == ['ccc', 'ddd']
 
 
-# Fails with multiple rarest words ...
-def _test_get_solution():
+def test_get_solution():
     parser = Parser(text=INPUT)
     parser.normalize()
     solution = parser.get_solution()
-
     assert solution == "Beispieltext der ein paar Wrter"
