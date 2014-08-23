@@ -1,4 +1,5 @@
 behave==1.2.2
+coveralls
 Flask
 Flask-WTF
 pytest
