@@ -27,3 +27,6 @@ Tests
 
     # Run continuous all tests (used during test driven development)
     make tdd
+
+    # Run acceptance tests
+    make behave
