@@ -1,15 +1,7 @@
 # -*- coding: utf-8 -*-
-"""
-- regex auf den ganzen text - nicht einzelne elemente
-- leerzeichen in extra methode raushauen
-- regex ersetzen " +" /\s+/ /
-- re.compile -> konstante fuer BuchstabenSpass
-
-"""
 import re
 import logging
 from collections import deque, defaultdict, namedtuple
-
 
 Result = namedtuple('Result', 'distance begin end')
 log = logging.getLogger('werkzeug')
@@ -20,10 +12,12 @@ multiple_white_spaces = re.compile(r'\s+')
 
 
 class Parser:
+    """
+    Class to find out the shortest earliest range in a given text, which contains the given words.
 
+    """
     def __init__(self, search_text='', search_string='', text=''):
         self.word_indicies = defaultdict(list)
-
         self.words = []
         text_lines = []
 
@@ -55,6 +49,10 @@ class Parser:
         self.words = filter(None, self.words)
 
     def _get_positions_of_each_word_in_text(self, text):
+        """
+        Store the index of each word within the text in a dictionary. The key is the word.
+
+        """
         indicies = defaultdict(list)
         for index, term in enumerate(text.split()):
             indicies[term].append(index)
@@ -144,6 +142,10 @@ class Parser:
         return list_to_browse[index_of_the_nearest_value]
 
     def get_distance(self, value_a, value_b):
+        """
+        Return the distance between two given values.
+
+        """
         return abs(int(value_a) - int(value_b))
 
     def get_rarest_words(self):
@@ -174,7 +176,7 @@ class Parser:
 
     def each_word_found(self):
         """
-        Return true if each word of the search string was found in the text.
+        Return true if each word of the words to search for was found in the text.
 
         """
         for word in self.words:
