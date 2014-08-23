@@ -3,6 +3,6 @@ python:
   - "2.7"
 install:
   - pip install -r dojo/requirements.txt
-script: py.test --cov dojo tests/test_* --cov-report=term-missing
+script: py.test --cov dojo dojo/tests/test_* --cov-report=term-missing
 after_success:
   - coveralls
