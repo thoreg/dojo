@@ -2,4 +2,5 @@ behave==1.2.2
 Flask
 Flask-WTF
 pytest
+pytest-cov
 watchdog
