@@ -22,4 +22,8 @@ Tests
 
 .. code:: bash
 
+    # Run all tests
     make tests
+
+    # Run continuous all tests (used during test driven development)
+    make tdd
