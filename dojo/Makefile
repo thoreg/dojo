@@ -5,3 +5,6 @@ tdd:
 
 test:
 	find . -wholename "*tests/test_*.py" | xargs py.test ${OPT}
+
+behave:
+	behave ${OPT}
