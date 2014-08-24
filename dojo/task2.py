@@ -37,8 +37,7 @@ class Field:
 
     def walk_through_all_cells(self):
         for cell in self.todo:
-            if cell[2] == '1':
-                self.to_check.append(cell)
+            print cell
 
     def get_all_cells(self):
         row = 0
@@ -46,7 +45,10 @@ class Field:
             if not index == 0 and index % self.dimension == 0:
                 row += 1
 
-            self.todo.append((index % self.dimension, row, digit))
+            self.todo.append((index % self.dimension, row))
+
+            if digit == '1':
+                self.to_check.append((index % self.dimension, row))
 
 
 class PlayGround:
