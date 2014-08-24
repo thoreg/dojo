@@ -78,33 +78,26 @@ def test_field_get_neighbours_of_this_cell():
     playground = PlayGround(text=TEXT)
     field = playground.fields[0]
 
-    cell = (1, 2)
     expected = [(0, 1), (0, 2), (0, 3), (1, 1), (1, 3), (2, 1), (2, 2), (2, 3)]
-    assert expected == sorted(field.get_neighbours_of_cell(cell))
+    assert expected == sorted(field.get_neighbours_of_cell(1, 2))
 
-    cell = (0, 0)
     expected = [(0, 1), (1, 0), (1, 1)]
-    assert expected == sorted(field.get_neighbours_of_cell(cell))
+    assert expected == sorted(field.get_neighbours_of_cell(0, 0))
 
-    cell = (3, 0)
     expected = [(2, 0), (2, 1), (3, 1)]
-    assert expected == sorted(field.get_neighbours_of_cell(cell))
+    assert expected == sorted(field.get_neighbours_of_cell(3, 0))
 
-    cell = (0, 2)
     expected = [(0, 1), (0, 3), (1, 1), (1, 2), (1, 3)]
-    assert expected == sorted(field.get_neighbours_of_cell(cell))
+    assert expected == sorted(field.get_neighbours_of_cell(0, 2))
 
-    cell = (0, 3)
     expected = [(0, 2), (1, 2), (1, 3)]
-    assert expected == sorted(field.get_neighbours_of_cell(cell))
+    assert expected == sorted(field.get_neighbours_of_cell(0, 3))
 
-    cell = (3, 2)
     expected = [(2, 1), (2, 2), (2, 3), (3, 1), (3, 3)]
-    assert expected == sorted(field.get_neighbours_of_cell(cell))
+    assert expected == sorted(field.get_neighbours_of_cell(3, 2))
 
-    cell = (3, 3)
     expected = [(2, 2), (2, 3), (3, 2)]
-    assert expected == sorted(field.get_neighbours_of_cell(cell))
+    assert expected == sorted(field.get_neighbours_of_cell(3, 3))
 
 
 def test_field_get_solution():
