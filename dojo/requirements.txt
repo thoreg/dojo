@@ -1,7 +1,7 @@
 behave==1.2.2
-coveralls
-Flask
-Flask-WTF
-pytest
-pytest-cov
-watchdog
+coveralls==0.4.2
+-e git+https://github.com/mitsuhiko/flask.git@f6d25bbc4f95112e9f5f85096d12a61ed43b38b8#egg=Flask-origin/HEAD
+Flask-WTF==0.10.0
+pytest==2.6.1
+pytest-cov==1.8.0
+watchdog==0.8.1
