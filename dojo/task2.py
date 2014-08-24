@@ -44,25 +44,26 @@ class Field:
             print "x: {}, y: {} : {}".format(x, y, self.content[y][x])
 
             if self.content[y][x] == '1':
+                print
+                print "New Cell to check found: ({}, {})".format(x, y)
                 to_check.add((x, y))
+                number_of_groups += 1
 
             while to_check:
-                cell = to_check.pop()
-                print "CELL: {}".format(cell)
-                if cell in seen:
-                    print "cell {} already seen".format(cell)
+                (x, y) = to_check.pop()
+                if (x, y) in seen:
+                    print "cell {} already seen".format((x, y))
                     continue
 
-                neighbours = self.get_neighbours_of_cell(cell)
+                neighbours = self.get_neighbours_of_cell((x, y))
                 for nx, ny in neighbours:
                     if self.content[nx][ny] == '1':
                         to_check.add((nx, ny))
 
-                print "2check: {}".format(to_check)
-                seen.add(cell)
+                    seen.add((nx, ny))
+                    print "2check: {}".format(to_check)
 
-            number_of_groups += 1
-            seen.add(cell)
+            seen.add((x, y))
 
         print
         print "to_check: "

@@ -110,5 +110,6 @@ def test_field_get_neighbours_of_this_cell():
 def test_field_get_solution():
     playground = PlayGround(text=TEXT)
     field = playground.fields[0]
+    #playground.get_solution()
     field.get_solution()
 
