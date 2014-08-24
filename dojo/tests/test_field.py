@@ -55,7 +55,7 @@ def test_playground_read_input():
     assert playground.number_of_fields == 3
 
 
-def test_playground_get_solution():
+def __test_playground_get_solution():
     playground = PlayGround(text=TEXT)
     playground.get_solution()
 
@@ -74,7 +74,7 @@ def test_field_get_all_cells():
     assert field.todo == expected
 
 
-def test_get_neighbours_of_this_cell():
+def test_field_get_neighbours_of_this_cell():
     playground = PlayGround(text=TEXT)
     field = playground.fields[0]
 
@@ -105,3 +105,10 @@ def test_get_neighbours_of_this_cell():
     cell = (3, 3)
     expected = [(2, 2), (2, 3), (3, 2)]
     assert expected == sorted(field.get_neighbours_of_cell(cell))
+
+
+def test_field_get_solution():
+    playground = PlayGround(text=TEXT)
+    field = playground.fields[0]
+    field.get_solution()
+

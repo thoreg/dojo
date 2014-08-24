@@ -15,7 +15,7 @@ class Field:
     def __init__(self, dimension, field_lines):
         self.dimension = int(dimension)
         self.number_of_cells = self.dimension * self.dimension
-        self.content = field_lines
+        self.content = "".join(field_lines)
         self.todo = []
         self.to_check = []
 
@@ -37,9 +37,28 @@ class Field:
         # self.debug()
 
     def walk_through_all_cells(self):
-        # for cell in self.todo:
-        #     print cell
-        pass
+        to_check = []
+        print
+        print "content: "
+        print self.content
+
+        self.todo = sorted(self.todo)
+
+        print self.todo
+
+        while self.todo:
+            x, y = self.todo.pop()
+
+            index = x * self.dimension + y
+
+            print "x: {}, y: {} : {}".format(x, y, self.content[index])
+
+            if self.content[index] == '1':
+                to_check.append((x, y))
+
+        print
+        print "to_check: "
+        print sorted(to_check)
 
     def get_all_cells(self):
         row = 0
