@@ -86,3 +86,19 @@ def test_get_error_message():
     parser.normalize()
     solution = parser.get_solution()
     assert solution == "KEIN ABSCHNITT GEFUNDEN"
+
+
+SPECIAL_TEXT = u"""
+X C X X X B X A X X X B C X
+3
+A
+B
+C
+"""
+
+
+def test_get_solution_for_hairy_special_case():
+    parser = Parser(text=SPECIAL_TEXT)
+    parser.normalize()
+    solution = parser.get_solution()
+    assert solution == "A X X X B C"
