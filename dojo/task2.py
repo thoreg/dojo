@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 import re
-from collections import deque, defaultdict, namedtuple
 
-Cell = namedtuple('Cell', 'x y value')
 log = logging.getLogger('werkzeug')
 
 IS_ONE_DIGIT = re.compile(r'\d$')
@@ -18,28 +16,29 @@ class Field:
         self.dimension = dimension
         self.content = field_lines
         self.todo = []
+        self.to_check = []
 
     def debug(self):
         print
+        print "[todo]",
         for index, cell in enumerate(self.todo):
             if index % self.dimension == 0:
                 print "\n",
             print cell,
 
+        print "\n\n[to_check]"
+        for cell in self.to_check:
+            print cell
+
     def get_solution(self):
         self.get_all_cells()
-        self.debug()
         self.walk_through_all_cells()
+        self.debug()
 
     def walk_through_all_cells(self):
-        print "\nNu kommen die Zellen: "
         for cell in self.todo:
-            print cell,
-            if cell.value == '1':
-                print "XXX"
-            else:
-                print
-
+            if cell[2] == '1':
+                self.to_check.append(cell)
 
     def get_all_cells(self):
         row = 0
@@ -47,7 +46,7 @@ class Field:
             if not index == 0 and index % self.dimension == 0:
                 row += 1
 
-            self.todo.append(Cell(x=index % self.dimension, y=row, value=digit))
+            self.todo.append((index % self.dimension, row, digit))
 
 
 class PlayGround:
