@@ -28,11 +28,18 @@ class Field:
 
     def get_solution(self):
         self.get_all_cells()
-        self.walk_through_all_cells()
         self.debug()
+        self.walk_through_all_cells()
 
     def walk_through_all_cells(self):
-        pass
+        print "\nNu kommen die Zellen: "
+        for cell in self.todo:
+            print cell,
+            if cell.value == '1':
+                print "XXX"
+            else:
+                print
+
 
     def get_all_cells(self):
         row = 0
