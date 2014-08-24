@@ -1,2 +1,3 @@
 recursive-include dojo/templates *
 recursive-include dojo/static *
+include Makefile
