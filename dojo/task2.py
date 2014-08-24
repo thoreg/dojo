@@ -27,7 +27,6 @@ class Field:
         Connected means here these 'cells' are neighbours via N/NO/O/OS/S/SW/W/NW.
 
         """
-        self.todo = sorted(self.todo)
         log.info("self.content: {}".format(self.content))
         log.info("todo: ".format(self.todo))
 
@@ -44,10 +43,9 @@ class Field:
                 seen.add((x, y))
                 continue
 
-            else:
-                log.info("\nNew Cell to check found: ({}, {})".format(x, y))
-                to_check.add((x, y))
-                number_of_groups += 1
+            log.info("\nNew Cell to check found: ({}, {})".format(x, y))
+            to_check.add((x, y))
+            number_of_groups += 1
 
             while to_check:
                 (x, y) = to_check.pop()
