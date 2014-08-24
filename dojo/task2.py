@@ -77,12 +77,14 @@ class Field:
         print
 
     def get_all_cells(self):
-        row = 0
-        for index, digit in enumerate(range(self.dimension**2)):
-            if not index == 0 and index % self.dimension == 0:
-                row += 1
+        """
+        Build a matrix with all coordinates for all cells of the field.
 
-            self.todo.append((index % self.dimension, row))
+        """
+        self.todo = []
+        for y in range(self.dimension):
+            for x in range(self.dimension):
+                self.todo.append((x, y))
 
     def get_neighbours_of_cell(self, x, y):
         """
