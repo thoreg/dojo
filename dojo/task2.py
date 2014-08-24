@@ -19,7 +19,7 @@ class Field:
 
     def get_solution(self):
         self.get_all_cells()
-        self.walk_through_all_cells()
+        return self.walk_through_all_cells()
         # self.debug()
 
     def walk_through_all_cells(self):
@@ -41,7 +41,7 @@ class Field:
             if (x, y) in seen:
                 continue
 
-            print "x: {}, y: {} : {}".format(x, y, self.content[y][x])
+            #print "x: {}, y: {} : {}".format(x, y, self.content[y][x])
 
             if self.content[y][x] == '0':
                 seen.add((x, y))
@@ -65,16 +65,14 @@ class Field:
                     if self.content[ny][nx] == '1':
                         to_check.add((nx, ny))
 
-                    seen.add((nx, ny))
-                    print "2check: {}".format(to_check)
-
-            seen.add((x, y))
+                seen.add((x, y))
 
         print
         print "to_check: "
         print sorted(to_check)
         print "Number_of_groups: {}".format(number_of_groups)
         print
+        return number_of_groups
 
     def get_all_cells(self):
         """
@@ -164,7 +162,8 @@ class PlayGround:
         for field in self.fields:
             solutions.append(field.get_solution())
 
-        # return "\n".join(solutions)
+        return solutions
+        #return "\n".join(solutions)
 
         # print "PlayGroundFields: {}".format(self.fields)
         # for field in self.fields:

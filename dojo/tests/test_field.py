@@ -101,8 +101,11 @@ def test_field_get_neighbours_of_this_cell():
 
 
 def test_field_get_solution():
-    playground = PlayGround(text=TEXT)
+    playground = PlayGround(text=TEXTA)
     field = playground.fields[0]
-    #playground.get_solution()
-    field.get_solution()
+    assert field.get_solution() == 1
 
+
+def test_playground_get_solution():
+    playground = PlayGround(text=TEXTA)
+    assert playground.get_solution() == [1, 3, 3, 9]
