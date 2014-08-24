@@ -13,7 +13,8 @@ class Field:
 
     """
     def __init__(self, dimension, field_lines):
-        self.dimension = dimension
+        self.dimension = int(dimension)
+        self.number_of_cells = self.dimension * self.dimension
         self.content = field_lines
         self.todo = []
         self.to_check = []
@@ -33,22 +34,68 @@ class Field:
     def get_solution(self):
         self.get_all_cells()
         self.walk_through_all_cells()
-        self.debug()
+        # self.debug()
 
     def walk_through_all_cells(self):
-        for cell in self.todo:
-            print cell
+        # for cell in self.todo:
+        #     print cell
+        pass
 
     def get_all_cells(self):
         row = 0
-        for index, digit in enumerate("".join(self.content)):
+        for index, digit in enumerate(range(self.number_of_cells)):
             if not index == 0 and index % self.dimension == 0:
                 row += 1
 
             self.todo.append((index % self.dimension, row))
 
-            if digit == '1':
-                self.to_check.append((index % self.dimension, row))
+    def get_neighbours_of_cell(self, cell):
+        """
+        ---------------
+        | NW | N | NO |
+        ---------------
+        |  W | x |  O |
+        ---------------
+        | SW | S | SO |
+        ---------------
+
+        """
+        x = cell[0]
+        y = cell[1]
+        neighbours = set()
+
+        minimal_x = minimal_y = 0
+        maximal_x = maximal_y = self.dimension - 1
+
+        # N
+        neighbours.add((x, max(y - 1, minimal_y)))
+
+        # NO
+        neighbours.add((min(x + 1, maximal_x), max(y - 1, minimal_y)))
+
+        # O
+        neighbours.add((min(x + 1, maximal_x), y))
+
+        # SO
+        neighbours.add((min(x + 1, maximal_x), min(y + 1, maximal_y)))
+
+        # S
+        neighbours.add((x, min(y + 1, maximal_y)))
+
+        # SW
+        neighbours.add((max(x - 1, minimal_x), min(y + 1, maximal_y)))
+
+        # W
+        neighbours.add((max(x - 1, minimal_x), y))
+
+        # NW
+        neighbours.add((max(x - 1, minimal_x), max(y - 1, minimal_y)))
+
+        # A cell can not be the neighbour of itself
+        if cell in neighbours:
+            neighbours.remove(cell)
+
+        return sorted(neighbours)
 
 
 class PlayGround:
