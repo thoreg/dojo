@@ -72,8 +72,11 @@ class Parser:
         """
         self.word_indicies = self._get_positions_of_each_word_in_text(self.text)
 
+        if not self.words:
+            return u"ES KONNTEN KEINE WÖRTER IDENTIFIZIERT WERDEN"
+
         if not self.each_word_found():
-            return "KEIN ABSCHNITT GEFUNDEN"
+            return u"KEIN ABSCHNITT GEFUNDEN"
 
         self.rarest_words = self.get_rarest_words()
         log.info("\nThe rarest words: {}".format(self.rarest_words))
