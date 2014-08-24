@@ -34,7 +34,7 @@ class Parser:
                 self.words.append(line)
 
         self.text = "\n".join(text_lines)
-        self.words = set(self.words)
+        self.words = self.words
 
     def normalize(self):
         """
