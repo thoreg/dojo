@@ -14,22 +14,8 @@ class Field:
     """
     def __init__(self, dimension, field_lines):
         self.dimension = int(dimension)
-        self.number_of_cells = self.dimension * self.dimension
-        self.content = "".join(field_lines)
+        self.content = field_lines
         self.todo = []
-        self.to_check = []
-
-    def debug(self):
-        print
-        print "[todo]",
-        for index, cell in enumerate(self.todo):
-            if index % self.dimension == 0:
-                print "\n",
-            print cell,
-
-        print "\n\n[to_check]"
-        for cell in self.to_check:
-            print cell
 
     def get_solution(self):
         self.get_all_cells()
@@ -37,7 +23,7 @@ class Field:
         # self.debug()
 
     def walk_through_all_cells(self):
-        to_check = []
+        to_check = set()
         print
         print "content: "
         print self.content
@@ -46,37 +32,47 @@ class Field:
         print "todo: "
         print self.todo
 
-        number_of_units = 0
+        number_of_groups = 0
+
+        seen = set()
 
         while self.todo:
             x, y = self.todo.pop()
-            index = x * self.dimension + y
-            print "x: {}, y: {} : {}".format(x, y, self.content[index])
+            if (x, y) in seen:
+                continue
 
-            if self.content[index] == '1':
-                to_check.append((x, y))
+            print "x: {}, y: {} : {}".format(x, y, self.content[y][x])
+
+            if self.content[y][x] == '1':
+                to_check.add((x, y))
 
             while to_check:
                 cell = to_check.pop()
+                print "CELL: {}".format(cell)
+                if cell in seen:
+                    print "cell {} already seen".format(cell)
+                    continue
+
                 neighbours = self.get_neighbours_of_cell(cell)
                 for nx, ny in neighbours:
-                    nindex = nx * self.dimension + ny
-                    if self.content[nindex] == '1':
-                        to_check.append((nx, ny))
+                    if self.content[nx][ny] == '1':
+                        to_check.add((nx, ny))
 
                 print "2check: {}".format(to_check)
+                seen.add(cell)
 
-            number_of_units += 1
+            number_of_groups += 1
+            seen.add(cell)
 
         print
         print "to_check: "
         print sorted(to_check)
-        print "Number_of_units: {}".format(number_of_units)
+        print "Number_of_units: {}".format(number_of_groups)
         print
 
     def get_all_cells(self):
         row = 0
-        for index, digit in enumerate(range(self.number_of_cells)):
+        for index, digit in enumerate(range(self.dimension**2)):
             if not index == 0 and index % self.dimension == 0:
                 row += 1
 
