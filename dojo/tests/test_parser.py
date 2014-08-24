@@ -34,7 +34,7 @@ ein Ende."""
 def test_read_input():
     parser = Parser(text=INPUT)
     assert parser.text == EXPECTED_TEXT
-    assert parser.words == [u'ein', u'Beispieltext', u'der', u'paar', u'W\xf6rter']
+    assert parser.words == [u'ein', u'beispieltext', u'der', u'paar', u'w\xf6rter']
 
 
 def test_normalize_text():
@@ -86,3 +86,29 @@ def test_get_error_message():
     parser.normalize()
     solution = parser.get_solution()
     assert solution == "KEIN ABSCHNITT GEFUNDEN"
+
+
+INPUT_IGNORE_CASE = u"""
+Ein toller Beispieltext ist Blindtext. Er hat ein paar Wörter. Dies ist ein
+Beispieltext, der ein paar Wörter hat und auch noch ein paar mehr, um die
+Zeile etwas länger zu machen. Darüber hinaus ist er nur dafür da, um
+genügend Testtext zusammenzubekommen. Dem Text selbst macht das nicht so
+viel aus. Früher einmal mehr, als er noch nicht so selbstbewusst war. Heute
+kennt er seine Rolle als Blindtext und fügt sich selbstbewusst ein. Er ist
+ja irgendwie wichtig. Manchmal jedoch, ganz manchmal, weint er in der Nacht,
+weil er niemals bis zum Ende gelesen wird. Doch das hat ja jetzt zum Glück
+ein Ende.
+5
+Ein
+BEISPIELTEXT
+der
+paaR
+wörTer
+"""
+
+
+def test_get_solution_ignore_case():
+    parser = Parser(text=INPUT_IGNORE_CASE)
+    parser.normalize()
+    solution = parser.get_solution()
+    assert solution == "Beispieltext der ein paar Wrter"

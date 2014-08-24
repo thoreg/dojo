@@ -31,7 +31,7 @@ class Parser:
             if is_text:
                 text_lines.append(line)
             else:
-                self.words.append(line)
+                self.words.append(line.lower())
 
         self.text = "\n".join(text_lines)
         self.words = self.words
@@ -56,7 +56,7 @@ class Parser:
         """
         indicies = defaultdict(list)
         for index, term in enumerate(text.split()):
-            indicies[term].append(index)
+            indicies[term.lower()].append(index)
         return indicies
 
     def get_solution(self):
