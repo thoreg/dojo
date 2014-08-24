@@ -52,12 +52,13 @@ class Field:
             while to_check:
                 (x, y) = to_check.pop()
                 if (x, y) in seen:
-                    print "cell {} already seen".format((x, y))
+                    print "   cell {} already seen".format((x, y))
                     continue
 
                 neighbours = self.get_neighbours_of_cell((x, y))
+                print "   neighbours: {}".format(neighbours)
                 for nx, ny in neighbours:
-                    if self.content[nx][ny] == '1':
+                    if self.content[ny][nx] == '1':
                         to_check.add((nx, ny))
 
                     seen.add((nx, ny))
@@ -68,7 +69,7 @@ class Field:
         print
         print "to_check: "
         print sorted(to_check)
-        print "Number_of_units: {}".format(number_of_groups)
+        print "Number_of_groups: {}".format(number_of_groups)
         print
 
     def get_all_cells(self):
