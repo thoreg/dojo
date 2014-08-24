@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
-import re
 import logging
+import re
 from collections import deque, defaultdict, namedtuple
 
-Result = namedtuple('Result', 'distance begin end')
+Cell = namedtuple('Cell', 'x y value')
 log = logging.getLogger('werkzeug')
 
-is_one_digit = re.compile(r'\d$')
-regex_text = re.compile(r'[^a-zA-Z\s]')
-multiple_white_spaces = re.compile(r'\s+')
+IS_ONE_DIGIT = re.compile(r'\d$')
 
 
 class Field:
@@ -19,11 +17,30 @@ class Field:
     def __init__(self, dimension, field_lines):
         self.dimension = dimension
         self.content = field_lines
+        self.todo = []
 
     def debug(self):
-        print "\n{} x {}".format(self.dimension, self.dimension)
-        for line in self.content:
-            print "{}".format(line)
+        print
+        for index, cell in enumerate(self.todo):
+            if index % self.dimension == 0:
+                print "\n",
+            print cell,
+
+    def get_solution(self):
+        self.get_all_cells()
+        self.walk_through_all_cells()
+        self.debug()
+
+    def walk_through_all_cells(self):
+        pass
+
+    def get_all_cells(self):
+        row = 0
+        for index, digit in enumerate("".join(self.content)):
+            if not index == 0 and index % self.dimension == 0:
+                row += 1
+
+            self.todo.append(Cell(x=index % self.dimension, y=row, value=digit))
 
 
 class PlayGround:
@@ -40,7 +57,7 @@ class PlayGround:
                 continue
 
             # A new field begins
-            if is_one_digit.match(line):
+            if IS_ONE_DIGIT.match(line):
                 dimension = int(line)
                 field_lines = []
                 lines_left = dimension
@@ -52,6 +69,12 @@ class PlayGround:
                 if lines_left == 0:
                     self.fields.append(Field(dimension, field_lines))
 
+    def get_solution(self):
+        solutions = []
+        for field in self.fields:
+            solutions.append(field.get_solution())
+
+        # return "\n".join(solutions)
 
         # print "PlayGroundFields: {}".format(self.fields)
         # for field in self.fields:
