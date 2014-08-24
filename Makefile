@@ -9,8 +9,12 @@ test:
 
 # Run all acceptance tests
 behave:
-	behave ${OPT}
+	behave dojo/features/ ${OPT}
 
 # Run all python tests and collect coverage data
 coverage:
-	py.test --cov dojo tests/test_* --cov-report=term-missing
+	py.test --cov dojo dojo/tests/test_* --cov-report=term-missing
+
+# Start local wsgi server for development
+runserver:
+	python dojo/views.py
