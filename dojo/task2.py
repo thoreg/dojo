@@ -43,22 +43,36 @@ class Field:
         print self.content
 
         self.todo = sorted(self.todo)
-
+        print "todo: "
         print self.todo
+
+        number_of_units = 0
 
         while self.todo:
             x, y = self.todo.pop()
-
             index = x * self.dimension + y
-
             print "x: {}, y: {} : {}".format(x, y, self.content[index])
 
             if self.content[index] == '1':
                 to_check.append((x, y))
 
+            while to_check:
+                cell = to_check.pop()
+                neighbours = self.get_neighbours_of_cell(cell)
+                for nx, ny in neighbours:
+                    nindex = nx * self.dimension + ny
+                    if self.content[nindex] == '1':
+                        to_check.append((nx, ny))
+
+                print "2check: {}".format(to_check)
+
+            number_of_units += 1
+
         print
         print "to_check: "
         print sorted(to_check)
+        print "Number_of_units: {}".format(number_of_units)
+        print
 
     def get_all_cells(self):
         row = 0
