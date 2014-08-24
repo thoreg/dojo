@@ -16,7 +16,7 @@ class Parser:
     Class to find out the shortest earliest range in a given text, which contains the given words.
 
     """
-    def __init__(self, search_text='', search_string='', text=''):
+    def __init__(self, text=''):
         self.word_indicies = defaultdict(list)
         self.words = []
         text_lines = []
