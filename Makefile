@@ -18,3 +18,7 @@ coverage:
 # Start local wsgi server for development
 runserver:
 	python dojo/views.py
+
+# Build dist package and upload it to pypi
+package:
+	python setup.py sdist upload
