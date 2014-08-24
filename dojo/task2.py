@@ -55,7 +55,7 @@ class Field:
                     print "   cell {} already seen".format((x, y))
                     continue
 
-                neighbours = self.get_neighbours_of_cell((x, y))
+                neighbours = self.get_neighbours_of_cell(x, y)
                 print "   neighbours: {}".format(neighbours)
                 for nx, ny in neighbours:
                     if self.content[ny][nx] == '1':
@@ -80,7 +80,7 @@ class Field:
 
             self.todo.append((index % self.dimension, row))
 
-    def get_neighbours_of_cell(self, cell):
+    def get_neighbours_of_cell(self, x, y):
         """
         ---------------
         | NW | N | NO |
@@ -91,8 +91,6 @@ class Field:
         ---------------
 
         """
-        x = cell[0]
-        y = cell[1]
         neighbours = set()
 
         minimal_x = minimal_y = 0
@@ -123,8 +121,8 @@ class Field:
         neighbours.add((max(x - 1, minimal_x), max(y - 1, minimal_y)))
 
         # A cell can not be the neighbour of itself
-        if cell in neighbours:
-            neighbours.remove(cell)
+        if (x, y) in neighbours:
+            neighbours.remove((x, y))
 
         return sorted(neighbours)
 
