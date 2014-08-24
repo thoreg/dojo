@@ -2,6 +2,7 @@
 
 from dojo.forms import SimpleForm
 from dojo.task1 import Parser
+from dojo.task2 import PlayGround
 from flask import flash, Flask, render_template, request
 
 app = Flask(__name__)
@@ -16,16 +17,20 @@ NAVIGATION_BAR = [
 
 
 @app.route('/task2')
-def render_task2():
+def task2():
     app_name = "task2"
     description = "Bitte geben sie einen Text mit Spielfeldern ein"
+    form = SimpleForm(request.form)
     context = {
         'active_page': app_name,
         'app_name': app_name,
         'description': description,
-        'form': SimpleForm(content='Ihre Eingabe bitte'),
+        'form': form,
         'navigation_bar': NAVIGATION_BAR,
     }
+    if request.method == 'POST' and form.validate():
+        field = PlayGround(text=form.text.data)
+        context['solution'] = field.get_solution()
 
     return render_template('task.html', **context)
 
