@@ -43,7 +43,11 @@ class Field:
 
             print "x: {}, y: {} : {}".format(x, y, self.content[y][x])
 
-            if self.content[y][x] == '1':
+            if self.content[y][x] == '0':
+                seen.add((x, y))
+                continue
+
+            else:
                 print
                 print "New Cell to check found: ({}, {})".format(x, y)
                 to_check.add((x, y))
