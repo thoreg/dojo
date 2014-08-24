@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
-import re
 
 log = logging.getLogger('werkzeug')
-
-IS_ONE_DIGIT = re.compile(r'\d$')
 
 
 class Field:
@@ -128,7 +125,7 @@ class PlayGround:
                 continue
 
             # A new field begins
-            if IS_ONE_DIGIT.match(line):
+            if line.isdigit():
                 dimension = int(line)
                 field_lines = []
                 lines_left = dimension
