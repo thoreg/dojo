@@ -34,6 +34,7 @@ class Parser:
                 self.words.append(line)
 
         self.text = "\n".join(text_lines)
+        self.words = set(self.words)
 
     def normalize(self):
         """
@@ -103,8 +104,7 @@ class Parser:
         list_of_search_words.remove(word)
         result = {}
 
-        # maximal distance is the number of all words - 1
-        result_distance = len(self.word_indicies) - 1
+        result_distance = None
 
         for index in self.word_indicies[word]:
             distance = 0
@@ -129,8 +129,8 @@ class Parser:
 
             log.info("distance: {} begin: {} end: {}".format(distance, begin, end))
 
-            if distance < result_distance:
-                result = Result(distance, begin, end+1)
+            if result_distance is None or distance < result_distance:
+                result = Result(distance, begin, end + 1)
                 result_distance = distance
 
         return result
@@ -163,10 +163,11 @@ class Parser:
                 occurrence = len(self.word_indicies[word])
                 rarest_words.append((word, occurrence))
 
-            if occurrence > len(self.word_indicies[word]):
+            elif occurrence > len(self.word_indicies[word]):
                 occurrence = len(self.word_indicies[word])
                 rarest_words.clear()
                 rarest_words.append((word, occurrence))
+
             elif occurrence == len(self.word_indicies[word]):
                 rarest_words.append((word, occurrence))
 
